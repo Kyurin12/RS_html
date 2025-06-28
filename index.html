@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PIC Tugas Harian - Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <style>
+ body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #f4f5fb;
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #ffffff;
+      padding: 30px 20px;
+      border-top-right-radius: 20px;
+      border-bottom-right-radius: 20px;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #4e54c8;
+      margin-bottom: 30px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .nav-link i {
+      font-size: 16px;
+      color: #777;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-link:hover {
+      background-color: #f0f0f0;
+    }
+
+    .nav-link.active {
+      background-color: #6a5af9;
+      color: #fff;
+    }
+
+    .nav-link.active i {
+      color: #fff;
+    }
+
+    .content {
+      flex: 1;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .btn-gradient-primary {
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      color: white;
+      border: none;
+    }
+
+    .btn-gradient-primary:hover {
+      background: linear-gradient(to right, #5a60d3, #9ea3fc);
+      color: white;
+    }
+
+    iframe {
+      width: 100%;
+      height: 700px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .logout {
+      border-top: 1px solid #eee;
+      margin-top: 20px;
+      padding-top: 20px;
+    }
+    .accordion-toggle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #333;
+  border-radius: 12px;
+  background: none;
+  width: 100%;
+  border: none;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.accordion-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+.accordion-toggle i {
+  font-size: 16px;
+  color: #777;
+  margin-right: 12px;
+}
+
+.accordion-toggle .chevron {
+  transition: transform 0.3s ease;
+}
+
+.accordion-toggle[aria-expanded="true"] .chevron {
+  transform: rotate(90deg);
+}
+
+.submenu {
+  padding-left: 30px;
+  margin-bottom: 10px;
+  display: none;
+  flex-direction: column;
+}
+
+.submenu .nav-link {
+  padding: 10px 10px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <nav class="sidebar">
+  <h2>Monitoring RSPG</h2>
+
+  <a href="#" class="nav-link active" data-target="dashboard">
+    <i class="fas fa-home"></i> Dashboard
+  </a>
+
+  <!-- Accordion Input Data -->
+  <button class="accordion-toggle" aria-expanded="false">
+    <span><i class="fas fa-database"></i> Input Data</span>
+    <i class="fas fa-chevron-right chevron"></i>
+  </button>
+  <div class="submenu">
+    <a href="#" class="nav-link" data-target="form-0">
+      <i class="fas fa-toolbox text-danger"></i> Trolly Emergency
+    </a>
+    <a href="#" class="nav-link" data-target="form-1">
+      <i class="fas fa-clipboard-list text-primary"></i> Laporan Kunjungan
+    </a>
+    <a href="#" class="nav-link" data-target="form-2">
+      <i class="fas fa-virus text-warning"></i> Surveillans HAI'S
+    </a>
+    <a href="#" class="nav-link" data-target="form-3">
+      <i class="fas fa-file-medical text-success"></i> Form Sensus
+    </a>
+    <a href="#" class="nav-link" data-target="form-4">
+      <i class="fas fa-user-plus text-info"></i> Pasien Baru
+    </a>
+    <a href="#" class="nav-link" data-target="form-5">
+      <i class="fas fa-user-check text-success"></i> Pasien Pulang
+    </a>
+    <a href="#" class="nav-link" data-target="form-6">
+      <i class="fas fa-stethoscope text-secondary"></i> Kelengkapan Alkes
+    </a>
+  </div>
+
+  <a href="#" class="nav-link" data-target="sheet">
+    <i class="fas fa-table"></i> Spreadsheet
+  </a>
+
+  <div class="logout">
+  <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#logoutModal">
+    <i class="fas fa-sign-out-alt me-2"></i> Logout
+  </a>
+</div>
+</nav>
+<!-- Modal Konfirmasi Logout -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">Konfirmasi Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda yakin ingin keluar dari sistem?
+      </div>
+      <div class="modal-footer">
+        <a href="{{ route('login') }}" class="btn btn-danger">Ya, Logout</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <main class="content">
+<section id="dashboard" class="view active">
+  <div class="container py-5 text-center">
+    
+    <!-- Sapaan Utama -->
+    <h1 class="fw-bold mb-3">🏥 Selamat Datang di Sistem Informasi Rumah Sakit</h1>
+    <p class="text-muted mb-4">
+      Gunakan menu di sebelah kiri untuk mencatat dan memantau <strong>data harian</strong> seperti laporan kunjungan, trolly emergency, pasien baru, pasien pulang, surveilans HAI's & kelengkapan alkes.
+    </p>
+    <p></p>
+
+    <!-- Ilustrasi Medis dari Undraw -->
+<img src="http://139.255.11.202:1122/assets/img/rspgnew.png"
+     alt="Dashboard Admin Rumah Sakit"
+     class="img-fluid rounded-4 shadow-sm mb-4"
+     style="width: 100%; max-width: 700px;">
+
+    <!-- Alert Info -->
+    <div class="alert alert-info mx-auto mt-4" style="max-width: 600px;">
+      <i class="fas fa-info-circle me-2"></i>
+      Pastikan setiap form diisi lengkap setiap hari untuk meningkatkan mutu pelayanan dan akurasi data rumah sakit.
+    </div>
+
+  </div>
+</section>
+<section id="form-0" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right, #f1fdf9, #e4f5ec);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Logo Trolly Emergency -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-notes-medical fa-2x text-success"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Daftar Trolly Emergency</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk mendokumentasikan pemeriksaan dan isi dari trolly emergency.<br>
+        Pastikan semua item telah dicek dan dilaporkan sesuai kondisi aktual di lapangan.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Nama petugas dan unit kerja
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tanggal dan jam pemeriksaan
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Kelengkapan item trolly dan kondisi peralatan
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYVS0hpSfoOtjRTTw91DXrnF4g5SLODNfzKNRWfbdKMnHgWg/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="form-1" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right, #f1fdf9, #e4f5ec);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Logo Trolly Emergency -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-clipboard-list fa-2x me-2 text-primary"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Laporan Kunjungan</h2>
+      <p class="text-muted mb-4">
+        Silakan isi formulir berikut untuk mencatat hasil kunjungan harian Anda.<br>
+        Pastikan data yang Anda masukkan lengkap dan sesuai dengan kondisi di lapangan.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+             Nama lengkap dan unit kerja
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tanggal dan waktu kunjungan
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tujuan dan hasil kunjungan
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://forms.gle/snuxnziWPsCP27oLA"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+    </div>
+  </div>
+</section>
+
+<section id="form-2" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right, #f1fdf9, #e4f5ec);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Surveillans -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-virus fa-2x text-warning"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Surveillans HAI'S</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk melakukan pencatatan hasil surveilans HAI's (Healthcare Associated Infections) di unit kerja Anda.<br>
+        Isilah dengan cermat sesuai dengan data temuan di lapangan.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Nama unit dan penanggung jawab surveilans
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tanggal dan lokasi temuan kasus HAI
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Jenis infeksi dan tindakan pengendalian
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScgiyAjb-rTzk1wnhnGk9vGEA3KUJZOkQNFoE0JvLNBwB70rA/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="form-3" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right,  #f1fdf9, #e4f5ec);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Form Sensus -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-file-medical fa-2x text-info"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Form Sensus</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk melakukan sensus harian pasien di masing-masing ruangan.<br>
+        Harap isikan data sesuai dengan kondisi aktual setiap hari.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Jumlah pasien awal dan pasien masuk
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Jumlah pasien keluar (pulang atau pindah)
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Total akhir dan catatan penting lainnya
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="form-4" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right, #f1fdf9, #e4f5ec);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Pasien Baru -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-user-plus fa-2x text-info"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Daftar Pasien Baru</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk mendokumentasikan data pasien baru yang masuk ke fasilitas pelayanan.<br>
+        Mohon isi informasi secara lengkap untuk memastikan kelancaran proses administrasi dan perawatan.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Nama lengkap dan nomor rekam medis
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tanggal dan waktu masuk
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Unit/ruangan tujuan dan diagnosa awal
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYVS0hpSfoOtjRTTw91DXrnF4g5SLODNfzKNRWfbdKMnHgWg/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section id="form-5" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right, #e6f9f0, #f0fdf8);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Pasien Pulang -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-user-check fa-2x text-success"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Daftar Pasien Pulang</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk mencatat data pasien yang telah selesai menjalani perawatan dan keluar dari fasilitas.<br>
+        Harap isikan secara lengkap untuk keperluan rekam medis dan laporan administrasi.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Nama lengkap dan nomor rekam medis
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Tanggal dan waktu keluar
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Status pulang (sembuh, pindah, rujuk, dll)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYVS0hpSfoOtjRTTw91DXrnF4g5SLODNfzKNRWfbdKMnHgWg/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+<section id="form-6" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0" style="background: linear-gradient(to right,  #e6f9f0, #f0fdf8);">
+    <div class="card-body p-5 text-center">
+
+      <!-- Ikon Kelengkapan Alkes -->
+      <div class="mb-4">
+        <div class="bg-white rounded-circle d-inline-flex justify-content-center align-items-center shadow-sm"
+             style="width: 80px; height: 80px;">
+          <i class="fas fa-stethoscope fa-2x text-primary"></i>
+        </div>
+      </div>
+
+      <h2 class="mb-3 fw-bold text-dark">Kelengkapan Alkes</h2>
+      <p class="text-muted mb-4">
+        Formulir ini digunakan untuk mencatat kondisi dan ketersediaan alat kesehatan (Alkes) di masing-masing unit.<br>
+        Mohon lengkapi dengan data terkini guna mendukung efektivitas pelayanan.
+      </p>
+
+      <div class="row justify-content-center mb-4">
+        <div class="col-md-4 text-start">
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Nama unit dan penanggung jawab
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Daftar dan jumlah Alkes tersedia
+            </li>
+            <li class="mb-2">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              Catatan kondisi (baik, rusak, perlu diganti)
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYVS0hpSfoOtjRTTw91DXrnF4g5SLODNfzKNRWfbdKMnHgWg/viewform"
+         target="_blank"
+         class="btn btn-lg btn-gradient-primary px-4 shadow-sm">
+        <i class="fas fa-pen-to-square me-2"></i>Isi Formulir Sekarang
+      </a>
+
+    </div>
+  </div>
+</section>
+
+    <section id="sheet" class="view container my-5">
+  <div class="card shadow-lg rounded-4 border-0">
+    <div class="card-body p-5 text-center">
+
+      <h2 class="mb-4 fw-bold text-dark">
+        <i class="fas fa-table me-2 text-primary"></i>Spreadsheet Data
+      </h2>
+      <p class="text-muted mb-4">
+        Klik salah satu tombol di bawah ini untuk melihat data hasil pengisian formulir.
+      </p>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 justify-content-center">
+
+        <!-- Trolly Emergency -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/1cN5fjTHhH7KZs2jkygU_N-U35vttPxGVkVTtYhMFDmc/edit?usp=sharing" target="_blank" class="btn btn-outline-success w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-toolbox me-2"></i> Daftar Trolly Emergency
+          </a>
+        </div>
+
+        <!-- Laporan Kunjungan -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/16TStKEIsnuXyP5opqNmrxXxEs8vmYG6LYXAVV_vIMyQ/edit?usp=sharing" target="_blank" class="btn btn-outline-primary w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-clipboard-list me-2"></i> Laporan Kunjungan
+          </a>
+        </div>
+
+        <!-- Surveillans HAI'S -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_SURVEILANS/pubhtml?widget=true&headers=false" target="_blank" class="btn btn-outline-warning w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-virus me-2"></i> Surveillans HAI'S
+          </a>
+        </div>
+
+        <!-- Form Sensus -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_SENSUS/pubhtml?widget=true&headers=false" target="_blank" class="btn btn-outline-success w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-file-medical me-2"></i> Form Sensus
+          </a>
+        </div>
+
+        <!-- Pasien Baru -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_PASIENBARU/pubhtml?widget=true&headers=false" target="_blank" class="btn btn-outline-info w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-user-plus me-2"></i> Daftar Pasien Baru
+          </a>
+        </div>
+
+        <!-- Pasien Pulang -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_PASIENPULANG/pubhtml?widget=true&headers=false" target="_blank" class="btn btn-outline-success w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-user-check me-2"></i> Daftar Pasien Pulang
+          </a>
+        </div>
+
+        <!-- Kelengkapan Alkes -->
+        <div class="col">
+          <a href="https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_ALKES/pubhtml?widget=true&headers=false" target="_blank" class="btn btn-outline-secondary w-100 py-3 shadow-sm rounded-3 text-start">
+            <i class="fas fa-stethoscope me-2"></i> Kelengkapan Alkes
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+  <script>
+    const links = document.querySelectorAll('.nav-link');
+  const views = document.querySelectorAll('.view');
+
+  links.forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const targetId = link.dataset.target;
+
+      views.forEach(view => view.classList.remove('active'));
+      links.forEach(l => l.classList.remove('active'));
+
+      document.getElementById(targetId)?.classList.add('active');
+      link.classList.add('active');
+    });
+  });
+
+  // Aktifkan tampilan dashboard default
+  document.querySelector('.nav-link[data-target="dashboard"]').click();
+
+  // Toggle submenu
+  const accordionToggle = document.querySelector('.accordion-toggle');
+  const submenu = document.querySelector('.submenu');
+
+  accordionToggle.addEventListener('click', () => {
+    const expanded = accordionToggle.getAttribute('aria-expanded') === 'true';
+    accordionToggle.setAttribute('aria-expanded', !expanded);
+    submenu.style.display = expanded ? 'none' : 'flex';
+  });
+  </script>
+</body>
+</html>
